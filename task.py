@@ -113,7 +113,7 @@ def largestContiguousSubArray(wt , fees, objectIndDict):     # largest contiguou
     print("End Index of the Contiguous Array",end)
     print("Max weight attained By the block", weight)
     
-    for i in range(start,end):
+    for i in range(start,end+1):
         objectIncludedInTheBlock.append(objectIndDict[i])
     return objectIncludedInTheBlock
 
@@ -128,11 +128,16 @@ validTransactionListWithParent = valid_transations_with_parent(objectData, objec
 
 validTransactionListWithAllData = transactionsListWithNoParent + validTransactionListWithParent
 
+print("Valid Transactions with No Parent :", len(transactionsListWithNoParent))
+print("Valid Transactions with Parent :", len(validTransactionListWithParent))
+print("All Valid Transactions :", len(validTransactionListWithAllData))
+
 newIndexedObjectIdDict = contruct_ind_dict(validTransactionListWithAllData)
 
 feesList = arrayList(validTransactionListWithAllData,"fee")
 weightList = arrayList(validTransactionListWithAllData,"weight")
 objectIncludedInTheBlock = largestContiguousSubArray(weightList, feesList, newIndexedObjectIdDict)
+print("Final Objects Included in the block are :", len(objectIncludedInTheBlock))
 outputFile = open("block.txt", "w")
 with open('block.txt', 'w') as f:
     for item in objectIncludedInTheBlock[::-1]:
