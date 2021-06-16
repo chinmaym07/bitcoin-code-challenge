@@ -140,6 +140,6 @@ objectIncludedInTheBlock = largestContiguousSubArray(weightList, feesList, newIn
 print("Final Objects Included in the block are :", len(objectIncludedInTheBlock))
 outputFile = open("block.txt", "w")
 with open('block.txt', 'w') as f:
-    for item in objectIncludedInTheBlock[::-1]:
+    for item in objectIncludedInTheBlock:
         f.write("%s\n" % item)
     f.close()
