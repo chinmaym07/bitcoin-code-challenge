@@ -88,31 +88,28 @@ def largestContiguousSubArray(wt , fees, objectIndDict):     # largest contiguou
     present_sum =present_wt =ini_index =fin_index =maxPossibleFee =start =weight =end = 0
 
     for i in range(len(fees)):
-
-        if present_wt + wt[i] <= maximumBlockWt: 
-            present_wt += wt[i]                                 
+        present_wt += wt[i]
+        
+        if present_wt <= maximumBlockWt: 
             present_sum += fees[i]
             fin_index += 1 
         else:
-            present_wt -= wt[ini_index]                                   
-            present_sum -= fees[ini_index]
-            ini_index += 1                                                         
-            
-            if present_wt+wt[i] <= maximumBlockWt:
-                present_wt += wt[i]                                   
-                present_sum += fees[i]
-                fin_index += 1
-            if present_sum > maxPossibleFee  and present_wt <= maximumBlockWt:
-                maxPossibleFee  = present_sum
-                start = ini_index
-                end = fin_index
-                weight = present_wt
-    
+            while present_wt > maximumBlockWt:
+                present_wt -= wt[ini_index]                                   
+                present_sum -= fees[ini_index]
+                ini_index += 1                                                         
+        
+        if present_sum > maxPossibleFee  and present_wt <= maximumBlockWt:
+            maxPossibleFee  = present_sum
+            start = ini_index
+            end = fin_index
+            weight = present_wt
+    print("")
     print("Maximum Possible Fee Gained By the Miner", maxPossibleFee)
     print("Start Index of the Contiguous Array",start)
     print("End Index of the Contiguous Array",end)
     print("Max weight attained By the block", weight)
-    
+    print("")
     for i in range(start,end+1):
         objectIncludedInTheBlock.append(objectIndDict[i])
     return objectIncludedInTheBlock
